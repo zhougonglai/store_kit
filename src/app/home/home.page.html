@@ -1,0 +1,103 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-button>
+				<ion-icon slot="icon-only" name="menu"></ion-icon>
+			</ion-button>
+		</ion-buttons>
+		<ion-searchbar placeholder="找到你的最爱"></ion-searchbar>
+		<ion-buttons slot="end">
+			<ion-button>
+				<ion-icon slot="icon-only" name="notifications"></ion-icon>
+			</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+<ion-content>
+	<ion-slides pager="true" [options]="slideOpts">
+		<ion-slide *ngFor="let banner of banners; let i">
+			<img [src]="banner" [alt]="i" />
+		</ion-slide>
+	</ion-slides>
+
+	<ion-grid>
+		<ion-row class="ion-align-items-center ion-justify-content-center">
+			<ion-col *ngFor="let item of list" size="3">
+				<div class="category">
+					<svg class="icon" aria-hidden="true">
+						<use [attr.xlink:href]="item.icon"></use>
+					</svg>
+					<small class="category__label">{{ item.label }}</small>
+				</div>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+
+	<ion-toolbar>
+		<div class="title">新品推荐</div>
+		<ion-buttons slot="end">
+			<ion-button>查看更多></ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+	<div class="scroll-view-container horizontal">
+		<div class="cell-list horizontal">
+			<div class="cell-item" *ngFor="let fresh of freshs">
+				<div class="box">
+					<img [src]="fresh.img" class="box-img" [alt]="fresh.label" />
+					<div class="box-content">
+						<div class="box-title smaller">{{ fresh.title }}</div>
+						<div class="box-subtitle small">{{ fresh.label }}</div>
+						<div class="box-rate small">
+							{{ getRate(fresh.rate) }} <i>{{ fresh.rate }}分</i>
+						</div>
+						<div class="box-price">
+							¥{{ fresh.price }}
+							<sub>{{ fresh.original }}</sub>
+						</div>
+						<ion-buttons class="box-action">
+							<ion-button color="danger" fill="clear" size="small">
+								<ion-icon slot="icon-only" name="add-circle"></ion-icon>
+							</ion-button>
+						</ion-buttons>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<ion-toolbar>
+		<div class="title">聚划算</div>
+		<ion-buttons slot="end">
+			<ion-button>查看更多></ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+
+	<div class="scroll-view-container vertical">
+		<div class="cell-list vertical">
+			<div class="cell-item" *ngFor="let fresh of freshs">
+				<div class="box">
+					<img [src]="fresh.img" class="box-img" [alt]="fresh.label" />
+					<div class="box-content">
+						<div class="box-title large">{{ fresh.title }}</div>
+						<div class="box-subtitle">{{ fresh.label }}</div>
+						<div class="fill"></div>
+						<div class="box-price larger">
+							¥{{ fresh.price }} <sub>{{ fresh.original }}</sub>
+						</div>
+						<ion-buttons class="box-action">
+							<ion-button color="danger" fill="solid">
+								马上抢
+							</ion-button>
+						</ion-buttons>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<ion-toolbar>
+		<div class="block">
+			到底了!
+		</div>
+	</ion-toolbar>
+</ion-content>

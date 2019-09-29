@@ -1,0 +1,148 @@
+:host {
+	.category {
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		svg.icon {
+			width: 48px;
+			height: 48px;
+		}
+	}
+}
+
+.fill {
+	flex: 1;
+}
+
+.title {
+	margin-left: 8px;
+	padding-left: 8px;
+	border-left: 3px solid #2196f3;
+}
+
+.block {
+	width: 100%;
+	text-align: center;
+	color: var(--ion-color-medium);
+}
+
+/* @component {app-scroll} */
+.scroll-view-container {
+	&.horizontal {
+		overflow-x: auto;
+		overscroll-behavior-y: none;
+		overscroll-behavior-x: contain;
+		&::-webkit-scrollbar {
+			display: none;
+		}
+	}
+
+	&.vertical {
+		overflow-y: auto;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.cell-list {
+		&.horizontal {
+			overflow-y: hidden;
+			padding-left: 16px;
+			padding-right: 16px;
+			width: fit-content;
+			display: flex;
+			.cell-item {
+				width: 35vw;
+
+				& + .cell-item {
+					margin-left: 16px;
+				}
+				.box {
+					width: inherit;
+					.box-img {
+						width: fit-content;
+						border-radius: 5px;
+					}
+
+					.box-content {
+						position: relative;
+						.box-title {
+							color: var(--ion-color-dark-shade);
+						}
+						.box-subtitle {
+							color: var(--ion-color-dark-tint);
+						}
+						.box-rate {
+							color: var(--ion-color-warning);
+						}
+
+						.box-price {
+							color: var(--ion-color-danger);
+							sub {
+								color: var(--ion-color-medium);
+								text-decoration: line-through;
+							}
+						}
+						.box-action {
+							position: absolute;
+							bottom: -1px;
+							right: -6px;
+						}
+					}
+				}
+			}
+		}
+
+		&.vertical {
+			.cell-item {
+				& + .cell-item {
+					margin-top: 16px;
+				}
+				.box {
+					flex: 1;
+					display: flex;
+					margin: 8px;
+					box-shadow: 0 0 4px 2px rgba(var(--ion-color-medium-rgb), 0.2);
+					border-radius: 8px;
+					overflow: hidden;
+					.box-img {
+						height: 125px;
+					}
+
+					.box-content {
+						padding: 8px;
+						position: relative;
+						flex: 1;
+						display: flex;
+						flex-direction: column;
+
+						.box-title {
+							color: var(--ion-color-dark-shade);
+						}
+						.box-subtitle {
+							color: var(--ion-color-dark-tint);
+						}
+						.box-rate {
+							color: var(--ion-color-warning);
+						}
+
+						.box-price {
+							color: var(--ion-color-danger);
+							sub {
+								color: var(--ion-color-medium);
+								text-decoration: line-through;
+							}
+						}
+
+						.box-action {
+							position: absolute;
+							bottom: 8px;
+							right: 8px;
+						}
+					}
+				}
+			}
+		}
+	}
+}

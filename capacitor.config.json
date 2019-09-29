@@ -1,0 +1,7 @@
+{
+	"appId": "io.infinite.store",
+	"appName": "store_kit",
+	"bundledWebRuntime": false,
+	"npmClient": "npm",
+	"webDir": "www"
+}

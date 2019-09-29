@@ -1,5 +1,8 @@
 {
   "name": "store_kit",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
   "type": "angular"
 }
