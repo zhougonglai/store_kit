@@ -1,20 +1,65 @@
-<ion-content fullscreen>
-	<ion-toolbar>
-		<ion-segment slot="secondary">
-			<ion-segment-button value="10" checked>
-				<ion-label>十人团</ion-label>
-			</ion-segment-button>
-			<ion-segment-button value="5">
-				<ion-label>五人团</ion-label>
-			</ion-segment-button>
-			<ion-segment-button value="2">
-				<ion-label>两人团</ion-label>
-			</ion-segment-button>
-		</ion-segment>
-		<ion-buttons slot="primary">
-			<ion-button>
-				<ion-icon slot="icon-only" name="list"></ion-icon>
-			</ion-button>
-		</ion-buttons>
-	</ion-toolbar>
-</ion-content>
+<div class="ion-page" main>
+	<ion-header translucent>
+		<ion-toolbar>
+			<ion-segment slot="secondary" (ionChange)="segmentChanged($event)">
+				<ion-segment-button value="10" checked>
+					<ion-label>十人团</ion-label>
+				</ion-segment-button>
+				<ion-segment-button value="5">
+					<ion-label>五人团</ion-label>
+				</ion-segment-button>
+				<ion-segment-button value="2">
+					<ion-label>两人团</ion-label>
+				</ion-segment-button>
+			</ion-segment>
+			<ion-buttons slot="primary">
+				<ion-menu-button></ion-menu-button>
+			</ion-buttons>
+		</ion-toolbar>
+	</ion-header>
+	<ion-content fullscreen>
+		<ion-grid>
+			<ion-row class="ion-align-items-center ion-justify-content-center">
+				<ion-col *ngFor="let item of goods" size="6">
+					<div class="box">
+						<div class="box-thumbnail">
+							<img [src]="item.img" />
+						</div>
+						<div class="box-content">
+							<div class="box-title bold">{{ item.title }}</div>
+							<div class="box-subtitle small">{{ item.label }}</div>
+							<div class="box-price">
+								¥{{ item.price }}<sub>{{ item.original }}</sub>
+							</div>
+							<ion-buttons class="box-action">
+								<ion-button color="danger" fill="clear" size="small">
+									<ion-icon slot="icon-only" name="add-circle"></ion-icon>
+								</ion-button>
+							</ion-buttons>
+						</div>
+					</div>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+	</ion-content>
+</div>
+
+<ion-menu side="end" class="custom-menu">
+	<ion-header>
+		<ion-toolbar>
+			<ion-title>分类</ion-title>
+		</ion-toolbar>
+	</ion-header>
+	<ion-grid>
+		<ion-row>
+			<ion-col *ngFor="let item of list" size="4">
+				<div class="category">
+					<svg class="icon" aria-hidden="true">
+						<use [attr.xlink:href]="item.icon"></use>
+					</svg>
+					<small class="category__label">{{ item.label }}</small>
+				</div>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+</ion-menu>

@@ -1,9 +1,48 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>cart</ion-title>
-  </ion-toolbar>
+<ion-header translucent>
+	<ion-toolbar>
+		<ion-title>购物车</ion-title>
+		<ion-buttons slot="end">
+			<ion-button>管理</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content fullscreen class="ion-padding-vertical">
+	<div class="scroll-view-container vertical">
+		<div class="cell-list vertical">
+			<div class="cell-item" *ngFor="let cart of carts">
+				<div class="box">
+					<img [src]="cart.img" class="box-img" [alt]="cart.label" />
+					<div class="box-content">
+						<div class="box-title large">{{ cart.title }}</div>
+						<div class="box-subtitle">{{ cart.label }}</div>
+						<div class="fill"></div>
+						<div class="box-price larger">
+							¥{{ cart.price }} <sub>{{ cart.original }}</sub>
+						</div>
+						<ion-buttons class="box-action">
+							<ion-button color="danger">
+								<ion-icon
+									slot="icon-only"
+									name="remove-circle-outline"
+								></ion-icon>
+							</ion-button>
+							1
+							<ion-button color="danger">
+								<ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+							</ion-button>
+						</ion-buttons>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </ion-content>
+
+<ion-footer translucent>
+	<ion-toolbar>
+		<ion-buttons slot="end">
+			<ion-button color="danger" fill="solid">结算</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-footer>

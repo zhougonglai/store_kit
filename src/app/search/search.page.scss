@@ -1,0 +1,43 @@
+:host {
+	.box {
+		border-radius: 8px;
+		box-shadow: 0 0 4px 2px rgba(var(--ion-color-medium-rgb), 0.2);
+		overflow: hidden;
+
+		.box-content {
+			padding: 8px;
+			position: relative;
+
+			.box-price {
+				margin-top: 8px;
+				color: var(--ion-color-danger);
+				sub {
+					color: var(--ion-color-medium);
+					text-decoration: line-through;
+				}
+			}
+
+			.box-action {
+				position: absolute;
+				bottom: 0;
+				right: 0;
+			}
+		}
+	}
+
+	.category {
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		svg.icon {
+			width: 48px;
+			height: 48px;
+		}
+	}
+
+	.custom-menu {
+		--width: 65vw;
+	}
+}
