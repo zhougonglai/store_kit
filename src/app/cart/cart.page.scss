@@ -15,6 +15,8 @@
 		.cell-list {
 			&.vertical {
 				.cell-item {
+					display: flex;
+					align-items: center;
 					& + .cell-item {
 						margin-top: 16px;
 					}
@@ -63,6 +65,16 @@
 					}
 				}
 			}
+		}
+	}
+
+	.flex {
+		display: flex;
+	}
+
+	ion-footer {
+		small {
+			color: var(--ion-color-medium);
 		}
 	}
 }

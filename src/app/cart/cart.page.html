@@ -1,9 +1,9 @@
 <ion-header translucent>
 	<ion-toolbar>
 		<ion-title>购物车</ion-title>
-		<ion-buttons slot="end">
+		<!-- <ion-buttons slot="end">
 			<ion-button>管理</ion-button>
-		</ion-buttons>
+		</ion-buttons> -->
 	</ion-toolbar>
 </ion-header>
 
@@ -11,6 +11,7 @@
 	<div class="scroll-view-container vertical">
 		<div class="cell-list vertical">
 			<div class="cell-item" *ngFor="let cart of carts">
+				<ion-checkbox color="danger" class="ion-margin-start"></ion-checkbox>
 				<div class="box">
 					<img [src]="cart.img" class="box-img" [alt]="cart.label" />
 					<div class="box-content">
@@ -41,6 +42,11 @@
 
 <ion-footer translucent>
 	<ion-toolbar>
+		<div class="flex ion-align-items-center" slot="start">
+			<ion-checkbox color="danger" class="ion-margin-start"></ion-checkbox>
+			<small class="ion-margin-start">全选</small>
+		</div>
+
 		<ion-buttons slot="end">
 			<ion-button color="danger" fill="solid">结算</ion-button>
 		</ion-buttons>
