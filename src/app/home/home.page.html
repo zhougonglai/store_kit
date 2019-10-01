@@ -34,7 +34,7 @@
 		</ion-row>
 	</ion-grid>
 
-	<ion-toolbar>
+	<ion-toolbar class="ion-margin-top">
 		<div class="title">新品推荐</div>
 		<ion-buttons slot="end">
 			<ion-button>查看更多></ion-button>
@@ -45,7 +45,11 @@
 		<div class="cell-list horizontal">
 			<div class="cell-item" *ngFor="let fresh of freshs">
 				<div class="box">
-					<img [src]="fresh.img" class="box-img" [alt]="fresh.label" />
+					<img
+						[src]="fresh.img"
+						class="box-img elevation-1"
+						[alt]="fresh.label"
+					/>
 					<div class="box-content">
 						<div class="box-title smaller">{{ fresh.title }}</div>
 						<div class="box-subtitle small">{{ fresh.label }}</div>
@@ -67,7 +71,7 @@
 		</div>
 	</div>
 
-	<ion-toolbar>
+	<ion-toolbar class="ion-margin-top">
 		<div class="title">聚划算</div>
 		<ion-buttons slot="end">
 			<ion-button>查看更多></ion-button>
@@ -77,7 +81,30 @@
 	<div class="scroll-view-container vertical">
 		<div class="cell-list vertical">
 			<div class="cell-item" *ngFor="let fresh of freshs">
-				<div class="box">
+				<div class="box elevation-1">
+					<img [src]="fresh.img" class="box-img" [alt]="fresh.label" />
+					<div class="box-content">
+						<div class="box-title large">{{ fresh.title }}</div>
+						<div class="box-subtitle">{{ fresh.label }}</div>
+						<div class="fill"></div>
+						<div class="box-price larger">
+							¥{{ fresh.price }} <sub>{{ fresh.original }}</sub>
+						</div>
+						<ion-buttons class="box-action">
+							<ion-button
+								color="danger"
+								fill="solid"
+								(click)="pushCarts(fresh)"
+							>
+								马上抢
+							</ion-button>
+						</ion-buttons>
+					</div>
+				</div>
+			</div>
+
+			<div class="cell-item" *ngFor="let fresh of goods$ | async">
+				<div class="box elevation-1">
 					<img [src]="fresh.img" class="box-img" [alt]="fresh.label" />
 					<div class="box-content">
 						<div class="box-title large">{{ fresh.title }}</div>

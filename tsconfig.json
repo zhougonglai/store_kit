@@ -14,6 +14,11 @@
 		"typeRoots": ["node_modules/@types"],
 		"lib": ["es2018", "dom"],
 		"paths": {
+			"@model/*": ["src/app/shared/model/*"],
+			"@service/*": ["src/app/shared/service/*"],
+			"@store/*": ["src/app/shared/store/*"],
+			"@utils": ["src/app/shared/utils/index.ts"],
+			"@utils/*": ["src/app/shared/utils/*"],
 			"@env/*": ["src/environments/*"]
 		}
 	},

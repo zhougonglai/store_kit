@@ -61,3 +61,7 @@
 .lighter {
 	font-weight: lighter;
 }
+
+.elevation-1 {
+	box-shadow: 0 0 4px 2px rgba(var(--ion-color-medium-rgb), 0.2);
+}

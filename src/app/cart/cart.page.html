@@ -10,9 +10,14 @@
 <ion-content fullscreen class="ion-padding-vertical">
 	<div class="scroll-view-container vertical">
 		<div class="cell-list vertical">
-			<div class="cell-item" *ngFor="let cart of carts">
-				<ion-checkbox color="danger" class="ion-margin-start"></ion-checkbox>
-				<div class="box">
+			<div class="cell-item" *ngFor="let cart of carts.items">
+				<ion-checkbox
+					color="danger"
+					class="ion-margin-start"
+					[checked]="carts.selector.includes(cart.id)"
+					(ionChange)="statusChange(cart, $event)"
+				></ion-checkbox>
+				<div class="box elevation-1">
 					<img [src]="cart.img" class="box-img" [alt]="cart.label" />
 					<div class="box-content">
 						<div class="box-title large">{{ cart.title }}</div>
@@ -28,7 +33,7 @@
 									name="remove-circle-outline"
 								></ion-icon>
 							</ion-button>
-							1
+							{{ cart.count }}
 							<ion-button color="danger">
 								<ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
 							</ion-button>
@@ -40,15 +45,21 @@
 	</div>
 </ion-content>
 
-<ion-footer translucent>
+<div class="shopping-cart elevation-1">
 	<ion-toolbar>
 		<div class="flex ion-align-items-center" slot="start">
-			<ion-checkbox color="danger" class="ion-margin-start"></ion-checkbox>
+			<ion-checkbox
+				color="danger"
+				class="ion-margin-start"
+				[checked]="selectorAll"
+			></ion-checkbox>
 			<small class="ion-margin-start">全选</small>
 		</div>
+
+		<div class="count ion-text-right ion-margin-end">合计: {{ count }}</div>
 
 		<ion-buttons slot="end">
 			<ion-button color="danger" fill="solid">结算</ion-button>
 		</ion-buttons>
 	</ion-toolbar>
-</ion-footer>
+</div>

@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { cartsKeyword, CartsActions } from '@store/carts';
+import { GoodsService } from '@service/goods.service';
 
 @Component({
 	selector: 'app-home',
@@ -119,11 +123,26 @@ export class HomePage implements OnInit {
 		},
 	];
 
-	constructor() {}
+	goods$: Observable<[]>;
+
+	constructor(
+		private store: Store<{ [cartsKeyword]: [] }>,
+		private goodsService: GoodsService,
+	) {
+		this.goods$ = store.pipe(select(cartsKeyword));
+	}
 
 	getRate(rate) {
 		return '★★★★★☆☆☆☆☆'.slice(5 - rate, 10 - rate);
 	}
 
-	ngOnInit() {}
+	pushCarts(good) {
+		this.store.dispatch(CartsActions.Add(good));
+	}
+
+	ngOnInit() {
+		this.goodsService.getBanner().subscribe(data => {
+			console.log(data);
+		});
+	}
 }

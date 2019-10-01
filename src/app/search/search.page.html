@@ -17,11 +17,12 @@
 			</ion-buttons>
 		</ion-toolbar>
 	</ion-header>
+
 	<ion-content fullscreen>
 		<ion-grid>
 			<ion-row class="ion-align-items-center ion-justify-content-center">
 				<ion-col *ngFor="let item of goods" size="6">
-					<div class="box">
+					<div class="box elevation-1">
 						<div class="box-thumbnail">
 							<img [src]="item.img" />
 						</div>
