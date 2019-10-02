@@ -1,13 +1,14 @@
 import { actionCreator } from '@utils';
 import { createReducer, on, State, Action, props } from '@ngrx/store';
+import { GoodsDetails } from '@model/goods';
 
-export const cartsKeyword = 'Carts';
+export const cartsKeyword = '[Carts]';
 const initialState = [];
 
 /* -- @actions -- */
 export const CartsActions = {
 	Set: actionCreator(cartsKeyword, 'Set', props()),
-	Add: actionCreator(cartsKeyword, 'Add', props()),
+	Add: actionCreator(cartsKeyword, 'Add', props<GoodsDetails>()),
 };
 
 /* -- @reducer -- */

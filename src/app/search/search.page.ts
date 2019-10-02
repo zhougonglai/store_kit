@@ -1,5 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MenuController } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import { GoodsService } from '@service/goods.service';
+import { cartsKeyword } from '@store/carts';
+import { Store } from '@ngrx/store';
 
 @Component({
 	selector: 'app-search',
@@ -7,62 +9,7 @@ import { MenuController } from '@ionic/angular';
 	styleUrls: ['./search.page.scss'],
 })
 export class SearchPage implements OnInit {
-	goods = [
-		{
-			id: 1,
-			title: 'Force Majeure',
-			label: 'Unisex T-shirt',
-			price: 12.1,
-			original: 15.0,
-			rate: 4,
-			img: 'https://api.adorable.io/avatars/face/eyes1/nose2/mouth1/2196f3',
-		},
-		{
-			id: 2,
-			title: 'Nike fashion shoes',
-			label: 'Unisex shoes',
-			price: 42.1,
-			original: 15.0,
-			rate: 3,
-			img: 'https://api.adorable.io/avatars/face/eyes2/nose3/mouth10/8e8895',
-		},
-		{
-			id: 3,
-			title: 'Force Majeure',
-			label: 'Unisex T-shirt',
-			price: 12.4,
-			original: 15.0,
-			rate: 5,
-			img: 'https://api.adorable.io/avatars/face/eyes3/nose4/mouth11/ff4d4f',
-		},
-		{
-			id: 4,
-			title: 'Nike fashion shoes',
-			label: 'Unisex shoes',
-			price: 42.1,
-			original: 15.0,
-			rate: 5,
-			img: 'https://api.adorable.io/avatars/face/eyes4/nose5/mouth3/faad14',
-		},
-		{
-			id: 5,
-			title: 'Force Majeure',
-			label: 'Unisex T-shirt',
-			price: 42.5,
-			original: 15.0,
-			rate: 3,
-			img: 'https://api.adorable.io/avatars/face/eyes5/nose6/mouth5/52c41a',
-		},
-		{
-			id: 6,
-			title: 'Nike fashion shoes',
-			label: 'Unisex shoes',
-			price: 52.6,
-			original: 15.0,
-			rate: 5,
-			img: 'https://api.adorable.io/avatars/face/eyes1/nose2/mouth1/1890ff',
-		},
-	];
+	goods = [];
 
 	list = [
 		{
@@ -104,11 +51,33 @@ export class SearchPage implements OnInit {
 
 	segmentActive = '10';
 
-	constructor(private menu: MenuController) {}
+	constructor(
+		private store: Store<{ [cartsKeyword]: [] }>,
+		private goodsService: GoodsService,
+	) {}
 
-	ngOnInit() {}
+	ngOnInit() {
+		this.getGoodsList();
+	}
+
+	theMin(i: number, s: number) {
+		return Math.min(i, s);
+	}
+
+	theMax(i: number, s: number) {
+		return Math.max(i, s);
+	}
+
+	getGoodsList() {
+		this.goodsService
+			.getGoodsList(this.segmentActive)
+			.subscribe(({ data: { goods } }) => {
+				this.goods = goods;
+			});
+	}
 
 	segmentChanged({ detail: { value } }) {
 		this.segmentActive = value;
+		this.getGoodsList();
 	}
 }

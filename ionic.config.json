@@ -1,9 +1,9 @@
 {
-  "name": "store_kit",
-  "integrations": {
-    "capacitor": {},
-    "cordova": {}
-  },
-  "type": "angular",
-  "proxy": "https://www.easy-mock.com/mock/5cbd107d08c37e59eb3df85f/api"
+	"name": "store_kit",
+	"integrations": {
+		"capacitor": {},
+		"cordova": {}
+	},
+	"type": "angular",
+	"proxy": "http://yapi.demo.qunar.com"
 }

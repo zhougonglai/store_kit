@@ -1,62 +1,88 @@
 <ion-header translucent>
 	<ion-toolbar>
 		<ion-title>购物车</ion-title>
-		<!-- <ion-buttons slot="end">
-			<ion-button>管理</ion-button>
-		</ion-buttons> -->
 	</ion-toolbar>
 </ion-header>
 
 <ion-content fullscreen class="ion-padding-vertical">
-	<div class="scroll-view-container vertical">
-		<div class="cell-list vertical">
-			<div class="cell-item" *ngFor="let cart of carts.items">
-				<ion-checkbox
-					color="danger"
-					class="ion-margin-start"
-					[checked]="carts.selector.includes(cart.id)"
-					(ionChange)="statusChange(cart, $event)"
-				></ion-checkbox>
-				<div class="box elevation-1">
-					<img [src]="cart.img" class="box-img" [alt]="cart.label" />
-					<div class="box-content">
-						<div class="box-title large">{{ cart.title }}</div>
-						<div class="box-subtitle">{{ cart.label }}</div>
-						<div class="fill"></div>
-						<div class="box-price larger">
-							¥{{ cart.price }} <sub>{{ cart.original }}</sub>
+	<ng-container *ngIf="goods$.length | async; else empty">
+		<div class="scroll-view-container vertical">
+			<div class="cell-list vertical">
+				<div class="cell-item" *ngFor="let cart of goods$ | async">
+					<ion-checkbox
+						[name]="cart.label"
+						color="danger"
+						class="ion-margin-start"
+						[checked]="carts.selector.includes(cart.id)"
+						(ionChange)="statusChange(cart, $event)"
+					></ion-checkbox>
+					<div class="box elevation-1">
+						<img [src]="cart.img" class="box-img" [alt]="cart.label" />
+						<div class="box-content">
+							<div class="box-title large">{{ cart.title }}</div>
+							<div class="box-subtitle">{{ cart.label }}</div>
+							<div class="fill"></div>
+							<div class="box-price larger">
+								¥{{ cart.price.ultimately }}
+								<sub>{{ cart.price.original }}</sub>
+							</div>
+							<ion-buttons class="box-action">
+								<ion-button color="danger">
+									<ion-icon
+										slot="icon-only"
+										name="remove-circle-outline"
+									></ion-icon>
+								</ion-button>
+								{{ cart.count }}
+								<ion-button color="danger">
+									<ion-icon
+										slot="icon-only"
+										name="add-circle-outline"
+									></ion-icon>
+								</ion-button>
+							</ion-buttons>
 						</div>
-						<ion-buttons class="box-action">
-							<ion-button color="danger">
-								<ion-icon
-									slot="icon-only"
-									name="remove-circle-outline"
-								></ion-icon>
-							</ion-button>
-							{{ cart.count }}
-							<ion-button color="danger">
-								<ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
-							</ion-button>
-						</ion-buttons>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	</ng-container>
+	<ng-template #empty>
+		<div class="content">
+			<svg
+				t="1570004600639"
+				class="icon"
+				viewBox="0 0 1024 1024"
+				version="1.1"
+				xmlns="http://www.w3.org/2000/svg"
+				p-id="3410"
+				width="200"
+				height="200"
+			>
+				<path
+					d="M336.016 800a80 80 0 1 0-0.048 160 80 80 0 0 0 0.048-160z m23.936-656l10.736 79.84h542.048c-7.824 48-24.128 154.624-57.92 371.424-5.184 33.12-37.584 60.736-70.736 60.736H424.96c-33.296 0-66.288-27.92-70.592-60.016-51.84-385.712-56.032-417.76-56.16-418.656C287.36 104.992 221.568 48 148.4 48H16v80h132.4c32.8 0 65.84 28.896 70.592 60.624 0 0 4.064 30.752 56.096 417.792 9.6 71.472 76.832 129.584 149.888 129.584h359.104c72.704 0 138.48-56.24 149.76-128.448C1003.728 159.392 997.968 192 1006.24 144H359.952zM832 800c-44.224 0-80 35.808-80 80a80 80 0 1 0 160 0 80 80 0 0 0-80-80z"
+					fill="#565D64"
+					p-id="3411"
+				></path>
+			</svg>
+		</div>
+	</ng-template>
 </ion-content>
 
-<div class="shopping-cart elevation-1">
+<div class="shopping-cart elevation-1" *ngIf="goods$.length | async">
 	<ion-toolbar>
 		<div class="flex ion-align-items-center" slot="start">
 			<ion-checkbox
+				name="selectorAll"
 				color="danger"
 				class="ion-margin-start"
 				[checked]="selectorAll"
+				(ionChange)="selectorChange($event)"
 			></ion-checkbox>
 			<small class="ion-margin-start">全选</small>
 		</div>
 
-		<div class="count ion-text-right ion-margin-end">合计: {{ count }}</div>
+		<!-- <div class="count ion-text-right ion-margin-end">合计: {{ count }}</div> -->
 
 		<ion-buttons slot="end">
 			<ion-button color="danger" fill="solid">结算</ion-button>

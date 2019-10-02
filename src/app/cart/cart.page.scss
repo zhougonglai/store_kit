@@ -1,4 +1,8 @@
 :host {
+	ion-header {
+		z-index: 100;
+	}
+
 	.fill {
 		flex: 1;
 	}
@@ -17,13 +21,11 @@
 				.cell-item {
 					display: flex;
 					align-items: center;
-					& + .cell-item {
-					}
 					.box {
 						flex: 1;
 						display: flex;
 						margin: 8px 16px 8px 8px;
-						border-radius: 8px;
+						border-radius: 5px;
 						overflow: hidden;
 						.box-img {
 							height: 125px;
@@ -69,9 +71,21 @@
 	.flex {
 		display: flex;
 	}
+
+	.content {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
 }
 
 .shopping-cart {
 	width: 100%;
-	backdrop-filter: saturate(180%) blur(20px);
+	z-index: 100;
+}
+
+:host-context(.ios) {
+	.shopping-cart {
+		backdrop-filter: saturate(180%) blur(20px);
+	}
 }

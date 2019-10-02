@@ -15,9 +15,9 @@
 </ion-header>
 
 <ion-content fullscreen>
-	<ion-slides pager="true" [options]="slideOpts">
-		<ion-slide *ngFor="let banner of banners; let i">
-			<img [src]="banner" [alt]="i" />
+	<ion-slides pager="true" [options]="slideOpts" *ngIf="banners.length">
+		<ion-slide *ngFor="let banner of banners">
+			<ion-img [src]="banner"></ion-img>
 		</ion-slide>
 	</ion-slides>
 
@@ -46,7 +46,7 @@
 			<div class="cell-item" *ngFor="let fresh of freshs">
 				<div class="box">
 					<img
-						[src]="fresh.img"
+						[src]="fresh.cover"
 						class="box-img elevation-1"
 						[alt]="fresh.label"
 					/>
@@ -54,14 +54,21 @@
 						<div class="box-title smaller">{{ fresh.title }}</div>
 						<div class="box-subtitle small">{{ fresh.label }}</div>
 						<div class="box-rate small">
-							{{ getRate(fresh.rate) }} <i>{{ fresh.rate }}分</i>
+							{{ getRate(fresh.mean_rate) }} <i>{{ fresh.mean_rate }}分</i>
 						</div>
 						<div class="box-price">
-							¥{{ fresh.price }}
-							<sub>{{ fresh.original }}</sub>
+							¥{{ theMin(fresh.price.original, fresh.price.ultimately) }}
+							<sub>{{
+								theMax(fresh.price.original, fresh.price.ultimately)
+							}}</sub>
 						</div>
 						<ion-buttons class="box-action">
-							<ion-button color="danger" fill="clear" size="small">
+							<ion-button
+								color="danger"
+								fill="clear"
+								size="small"
+								(click)="pushCarts(fresh)"
+							>
 								<ion-icon slot="icon-only" name="add-circle"></ion-icon>
 							</ion-button>
 						</ion-buttons>
@@ -80,41 +87,25 @@
 
 	<div class="scroll-view-container vertical">
 		<div class="cell-list vertical">
-			<div class="cell-item" *ngFor="let fresh of freshs">
+			<div class="cell-item" *ngFor="let good of goods">
 				<div class="box elevation-1">
-					<img [src]="fresh.img" class="box-img" [alt]="fresh.label" />
+					<ion-img
+						[src]="good.cover"
+						class="box-img"
+						[alt]="good.label"
+					></ion-img>
 					<div class="box-content">
-						<div class="box-title large">{{ fresh.title }}</div>
-						<div class="box-subtitle">{{ fresh.label }}</div>
+						<div class="box-title large">{{ good.title }}</div>
+						<div class="box-subtitle small">{{ good.label }}</div>
 						<div class="fill"></div>
 						<div class="box-price larger">
-							¥{{ fresh.price }} <sub>{{ fresh.original }}</sub>
+							¥{{ theMin(good.price.original, good.price.ultimately) }}
+							<sub>{{
+								theMax(good.price.original, good.price.ultimately)
+							}}</sub>
 						</div>
 						<ion-buttons class="box-action">
-							<ion-button
-								color="danger"
-								fill="solid"
-								(click)="pushCarts(fresh)"
-							>
-								马上抢
-							</ion-button>
-						</ion-buttons>
-					</div>
-				</div>
-			</div>
-
-			<div class="cell-item" *ngFor="let fresh of goods$ | async">
-				<div class="box elevation-1">
-					<img [src]="fresh.img" class="box-img" [alt]="fresh.label" />
-					<div class="box-content">
-						<div class="box-title large">{{ fresh.title }}</div>
-						<div class="box-subtitle">{{ fresh.label }}</div>
-						<div class="fill"></div>
-						<div class="box-price larger">
-							¥{{ fresh.price }} <sub>{{ fresh.original }}</sub>
-						</div>
-						<ion-buttons class="box-action">
-							<ion-button color="danger" fill="solid">
+							<ion-button color="danger" fill="solid" (click)="pushCarts(good)">
 								马上抢
 							</ion-button>
 						</ion-buttons>

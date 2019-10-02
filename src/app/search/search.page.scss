@@ -3,6 +3,16 @@
 		border-radius: 8px;
 		overflow: hidden;
 
+		.box-thumbnail {
+			width: 100%;
+			height: 45vw;
+			background-color: var(--ion-color-light);
+			background-image: url('../../assets/placeholder.svg');
+			background-position: center;
+			background-size: 48px;
+			background-repeat: no-repeat;
+		}
+
 		.box-content {
 			padding: 8px;
 			position: relative;

@@ -4,6 +4,8 @@
 
 export const environment = {
 	production: false,
+	baseUrl: '/mock/1126/store/',
+	mockUrl: '/mock/5cbd107d08c37e59eb3df85f/api/',
 };
 
 /*

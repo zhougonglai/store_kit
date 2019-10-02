@@ -20,17 +20,20 @@
 
 	<ion-content fullscreen>
 		<ion-grid>
-			<ion-row class="ion-align-items-center ion-justify-content-center">
+			<ion-row>
 				<ion-col *ngFor="let item of goods" size="6">
 					<div class="box elevation-1">
 						<div class="box-thumbnail">
-							<img [src]="item.img" />
+							<img [src]="item.cover" />
 						</div>
 						<div class="box-content">
 							<div class="box-title bold">{{ item.title }}</div>
 							<div class="box-subtitle small">{{ item.label }}</div>
 							<div class="box-price">
-								¥{{ item.price }}<sub>{{ item.original }}</sub>
+								¥{{ theMin(item.price.original, item.price.ultimately) }}
+								<sub>{{
+									theMax(item.price.original, item.price.ultimately)
+								}}</sub>
 							</div>
 							<ion-buttons class="box-action">
 								<ion-button color="danger" fill="clear" size="small">

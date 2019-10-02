@@ -10,11 +10,10 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { environment } from '@env/environment';
+import { cartsKeyword, cartsReducer } from '@store/carts';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
-import { cartsKeyword, cartsReducer } from '@store/carts';
 
 @NgModule({
 	declarations: [AppComponent],

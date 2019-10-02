@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 import { cartsKeyword, CartsActions } from '@store/carts';
 import { GoodsService } from '@service/goods.service';
 
@@ -57,83 +56,27 @@ export class HomePage implements OnInit {
 		},
 	];
 
-	banners = [
-		'http://dummyimage.com/822x250/79d9f2/FFF.白&text=sdf',
-		'http://dummyimage.com/822x250/f2e779/FFF.属&text=sdvsdv',
-		'http://dummyimage.com/822x250/c479f2/FFF.声&text=svdvs',
-		'http://dummyimage.com/822x250/79f2a0/FFF.见&text=sdvs',
-		'http://dummyimage.com/822x250/f27d79/FFF.值&text=sdv',
-		'http://dummyimage.com/822x250/7998f2/FFF.打&text=sdvsdv',
-	];
+	banners = [];
 
-	freshs = [
-		{
-			id: 1,
-			title: 'Force Majeure',
-			label: 'Unisex T-shirt',
-			price: 12.1,
-			original: 15.0,
-			rate: 4,
-			img: 'https://api.adorable.io/avatars/face/eyes1/nose2/mouth1/2196f3',
-		},
-		{
-			id: 2,
-			title: 'Nike fashion shoes',
-			label: 'Unisex shoes',
-			price: 42.1,
-			original: 15.0,
-			rate: 3,
-			img: 'https://api.adorable.io/avatars/face/eyes2/nose3/mouth10/8e8895',
-		},
-		{
-			id: 3,
-			title: 'Force Majeure',
-			label: 'Unisex T-shirt',
-			price: 12.4,
-			original: 15.0,
-			rate: 5,
-			img: 'https://api.adorable.io/avatars/face/eyes3/nose4/mouth11/ff4d4f',
-		},
-		{
-			id: 4,
-			title: 'Nike fashion shoes',
-			label: 'Unisex shoes',
-			price: 42.1,
-			original: 15.0,
-			rate: 5,
-			img: 'https://api.adorable.io/avatars/face/eyes4/nose5/mouth3/faad14',
-		},
-		{
-			id: 5,
-			title: 'Force Majeure',
-			label: 'Unisex T-shirt',
-			price: 42.5,
-			original: 15.0,
-			rate: 3,
-			img: 'https://api.adorable.io/avatars/face/eyes5/nose6/mouth5/52c41a',
-		},
-		{
-			id: 6,
-			title: 'Nike fashion shoes',
-			label: 'Unisex shoes',
-			price: 52.6,
-			original: 15.0,
-			rate: 5,
-			img: 'https://api.adorable.io/avatars/face/eyes1/nose2/mouth1/1890ff',
-		},
-	];
+	freshs = [];
 
-	goods$: Observable<[]>;
+	goods = [];
 
 	constructor(
 		private store: Store<{ [cartsKeyword]: [] }>,
 		private goodsService: GoodsService,
-	) {
-		this.goods$ = store.pipe(select(cartsKeyword));
+	) {}
+
+	theMin(i: number, s: number) {
+		return Math.min(i, s);
+	}
+
+	theMax(i: number, s: number) {
+		return Math.max(i, s);
 	}
 
 	getRate(rate) {
-		return '★★★★★☆☆☆☆☆'.slice(5 - rate, 10 - rate);
+		return '★★★★★☆☆☆☆☆'.slice(5 - Math.round(rate), 10 - Math.round(rate));
 	}
 
 	pushCarts(good) {
@@ -141,8 +84,18 @@ export class HomePage implements OnInit {
 	}
 
 	ngOnInit() {
-		this.goodsService.getBanner().subscribe(data => {
-			console.log(data);
+		this.goodsService.getBanner().subscribe(({ data }) => {
+			this.banners = data;
 		});
+
+		this.goodsService.getGoodsList('fresh').subscribe(({ data: { goods } }) => {
+			this.freshs = goods;
+		});
+
+		this.goodsService
+			.getGoodsList('10,5,2')
+			.subscribe(({ data: { goods } }) => {
+				this.goods = goods;
+			});
 	}
 }
