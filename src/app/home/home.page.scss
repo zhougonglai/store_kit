@@ -1,4 +1,7 @@
 :host {
+	ion-header {
+		z-index: 100;
+	}
 	.category {
 		display: flex;
 		flex: 1;

@@ -18,11 +18,11 @@ export class CartPage implements OnInit {
 
 	goods$: Observable<[]>;
 
-	constructor(private store: Store<{ [cartsKeyword]: [] }>) {
-		this.goods$ = store.pipe(select(cartsKeyword));
-	}
+	constructor(private store: Store<{ [cartsKeyword]: [] }>) {}
 
-	ngOnInit() {}
+	ngOnInit() {
+		this.goods$ = this.store.pipe(select(cartsKeyword));
+	}
 
 	// 是否全选
 	get selectorAll(): boolean {

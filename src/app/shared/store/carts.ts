@@ -7,7 +7,6 @@ const initialState = [];
 
 /* -- @actions -- */
 export const CartsActions = {
-	Set: actionCreator(cartsKeyword, 'Set', props()),
 	Add: actionCreator(cartsKeyword, 'Add', props<GoodsDetails>()),
 };
 
