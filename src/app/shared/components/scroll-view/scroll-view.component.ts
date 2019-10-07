@@ -7,7 +7,8 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ScrollViewComponent implements OnInit {
 	// enum { horizontal , vertical }
-	@Input() direction: string;
+	@Input() direction = 'vertical';
+	@Input() items: [];
 
 	constructor() {}
 
