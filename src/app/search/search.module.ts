@@ -5,22 +5,27 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
+import { ScrollViewComponent } from '@components/scroll-view/scroll-view.component';
+import { BouncingLoaderComponent } from '@components/bouncing-loader/bouncing-loader.component';
+
+const Components = [ScrollViewComponent, BouncingLoaderComponent];
+
 import { SearchPage } from './search.page';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: SearchPage
-  }
+	{
+		path: '',
+		component: SearchPage,
+	},
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild(routes)
-  ],
-  declarations: [SearchPage]
+	imports: [
+		CommonModule,
+		FormsModule,
+		IonicModule,
+		RouterModule.forChild(routes),
+	],
+	declarations: [SearchPage, ...Components],
 })
 export class SearchPageModule {}

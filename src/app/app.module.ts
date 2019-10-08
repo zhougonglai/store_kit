@@ -29,6 +29,7 @@ import { AppComponent } from './app.component';
 		}),
 		AppRoutingModule,
 	],
+	exports: [],
 	providers: [
 		StatusBar,
 		SplashScreen,
