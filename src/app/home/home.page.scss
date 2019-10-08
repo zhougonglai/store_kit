@@ -16,12 +16,17 @@
 
 	ion-img {
 		width: 100%;
-		height: 110px;
 		background-color: var(--ion-color-light);
 		background-image: url('../../assets/placeholder.svg');
 		background-position: center;
 		background-size: 48px;
 		background-repeat: no-repeat;
+	}
+
+	ion-slide {
+		ion-img {
+			min-height: 100px;
+		}
 	}
 }
 
@@ -82,6 +87,10 @@
 						background-size: 48px;
 						background-repeat: no-repeat;
 						border-radius: 5px;
+
+						&[class*='shadow'] {
+							margin-top: 4px;
+						}
 					}
 
 					.box-content {

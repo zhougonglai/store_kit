@@ -3,5 +3,5 @@
 	"appName": "store_kit",
 	"bundledWebRuntime": false,
 	"npmClient": "npm",
-	"webDir": "www"
+	"webDir": "dist"
 }

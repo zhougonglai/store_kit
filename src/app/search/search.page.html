@@ -19,32 +19,37 @@
 	</ion-header>
 
 	<ion-content fullscreen>
-		<ion-grid>
-			<ion-row>
-				<ion-col *ngFor="let item of goods" size="6">
-					<div class="box elevation-1">
-						<div class="box-thumbnail">
-							<img [src]="item.cover" />
-						</div>
-						<div class="box-content">
-							<div class="box-title bold">{{ item.title }}</div>
-							<div class="box-subtitle small">{{ item.label }}</div>
-							<div class="box-price">
-								¥{{ theMin(item.price.original, item.price.ultimately) }}
-								<sub>{{
-									theMax(item.price.original, item.price.ultimately)
-								}}</sub>
+		<ng-container *ngIf="goods.length > 0; else empty">
+			<ion-grid>
+				<ion-row>
+					<ion-col *ngFor="let item of goods" size="6">
+						<div class="box elevation-1">
+							<div class="box-thumbnail">
+								<img [src]="item.cover" />
 							</div>
-							<ion-buttons class="box-action">
-								<ion-button color="danger" fill="clear" size="small">
-									<ion-icon slot="icon-only" name="add-circle"></ion-icon>
-								</ion-button>
-							</ion-buttons>
+							<div class="box-content">
+								<div class="box-title bold">{{ item.title }}</div>
+								<div class="box-subtitle small">{{ item.label }}</div>
+								<div class="box-price">
+									¥{{ theMin(item.price.original, item.price.ultimately) }}
+									<sub>{{
+										theMax(item.price.original, item.price.ultimately)
+									}}</sub>
+								</div>
+								<ion-buttons class="box-action">
+									<ion-button color="danger" fill="clear" size="small">
+										<ion-icon slot="icon-only" name="add-circle"></ion-icon>
+									</ion-button>
+								</ion-buttons>
+							</div>
 						</div>
-					</div>
-				</ion-col>
-			</ion-row>
-		</ion-grid>
+					</ion-col>
+				</ion-row>
+			</ion-grid>
+		</ng-container>
+		<ng-template #empty>
+			empty
+		</ng-template>
 	</ion-content>
 </div>
 
