@@ -1,6 +1,6 @@
 {
 	"appId": "io.infinite.store",
-	"appName": "store_kit",
+	"appName": "斗牛商城",
 	"bundledWebRuntime": false,
 	"npmClient": "npm",
 	"webDir": "dist"

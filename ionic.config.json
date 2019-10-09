@@ -1,9 +1,9 @@
 {
-	"name": "store_kit",
+	"name": "斗牛商城",
 	"integrations": {
 		"capacitor": {},
 		"cordova": {}
 	},
 	"type": "angular",
-	"proxy": "https://www.easy-mock.com"
+	"proxy": "https://storeserverapi.zhougonglai.now.sh"
 }

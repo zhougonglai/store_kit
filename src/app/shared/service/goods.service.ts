@@ -30,7 +30,7 @@ export class GoodsService {
 	// banner 图配置
 	getBanner(): Observable<Responser<Array<Banner>>> {
 		return this.http
-			.get<Responser<Array<Banner>>>(environment.mockUrl + this.bannerUrl)
+			.get<Responser<Array<Banner>>>(environment.baseUrl + this.bannerUrl)
 			.pipe(
 				retry(3),
 				catchError(this.handleError),
@@ -43,7 +43,7 @@ export class GoodsService {
 	 */
 	getGoodsList(type): Observable<Responser<Goods>> {
 		return this.http
-			.get<Responser<Goods>>(environment.mockUrl + this.goodsUrl, {
+			.get<Responser<Goods>>(environment.baseUrl + this.goodsUrl, {
 				params: { type },
 			})
 			.pipe(

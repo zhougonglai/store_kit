@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import _ from 'lodash';
 import { format } from 'mathjs';
 import { Store, select } from '@ngrx/store';
-import { cartsKeyword, CartsActions } from '@store/carts';
+import { CartsActions } from '@store/carts';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -18,10 +18,10 @@ export class CartPage implements OnInit {
 
 	goods$: Observable<[]>;
 
-	constructor(private store: Store<{ [cartsKeyword]: [] }>) {}
+	constructor(private store: Store<{ Carts: [] }>) {}
 
 	ngOnInit() {
-		this.goods$ = this.store.pipe(select(cartsKeyword));
+		this.goods$ = this.store.pipe(select('Carts'));
 	}
 
 	// 是否全选

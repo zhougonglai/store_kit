@@ -22,7 +22,7 @@ import { AppComponent } from './app.component';
 		BrowserModule,
 		HttpClientModule,
 		IonicModule.forRoot(),
-		StoreModule.forRoot({ [cartsKeyword]: cartsReducer }),
+		StoreModule.forRoot({ Carts: cartsReducer }),
 		StoreDevtoolsModule.instrument({
 			maxAge: 25,
 			logOnly: environment.production,

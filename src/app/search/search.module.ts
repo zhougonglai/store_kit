@@ -7,8 +7,13 @@ import { IonicModule } from '@ionic/angular';
 
 import { ScrollViewComponent } from '@components/scroll-view/scroll-view.component';
 import { BouncingLoaderComponent } from '@components/bouncing-loader/bouncing-loader.component';
+import { SpinnerComponent } from '@components/spinner/spinner.component';
 
-const Components = [ScrollViewComponent, BouncingLoaderComponent];
+const Components = [
+	ScrollViewComponent,
+	BouncingLoaderComponent,
+	SpinnerComponent,
+];
 
 import { SearchPage } from './search.page';
 

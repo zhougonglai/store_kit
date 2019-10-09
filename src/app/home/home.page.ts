@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { cartsKeyword, CartsActions } from '@store/carts';
 import { GoodsService } from '@service/goods.service';
+import { environment } from '@env/environment';
 
 @Component({
 	selector: 'app-home',
@@ -12,6 +13,8 @@ export class HomePage implements OnInit {
 	slideOpts = {
 		loop: true,
 	};
+
+	title = '';
 
 	list = [
 		{
@@ -65,7 +68,9 @@ export class HomePage implements OnInit {
 	constructor(
 		private store: Store<{ [cartsKeyword]: [] }>,
 		private goodsService: GoodsService,
-	) {}
+	) {
+		this.title = environment.production ? 'production' : 'developers';
+	}
 
 	theMin(i: number, s: number) {
 		return Math.min(i, s);

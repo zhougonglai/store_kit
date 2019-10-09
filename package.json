@@ -12,8 +12,11 @@
 		"ion:start": "ionic serve --external",
 		"ion:serve": "ionic serve --devapp",
 		"ion:server": "ionic serve -l",
-		"build": "ng build --baseHref=/store_kit --deployUrl=https://zhougonglai.github.io/store_kit/",
-		"now-build": "ng build",
+		"ion:build": "ionic build --prod",
+		"cap:android": "npx cap open android",
+		"cap:ios": "npx cap open ios",
+		"build": "ng build --prod",
+		"now-build": "ng build --prod",
 		"test": "ng test",
 		"lint": "ng lint",
 		"e2e": "ng e2e"
