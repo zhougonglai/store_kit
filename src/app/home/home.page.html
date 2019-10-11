@@ -43,7 +43,11 @@
 
 	<div class="scroll-view-container horizontal">
 		<div class="cell-list horizontal">
-			<div class="cell-item" *ngFor="let fresh of freshs">
+			<div
+				class="cell-item"
+				*ngFor="let fresh of freshs"
+				(click)="goodDetails(fresh)"
+			>
 				<div class="box">
 					<img
 						[src]="fresh.cover"
@@ -87,7 +91,11 @@
 
 	<div class="scroll-view-container vertical">
 		<div class="cell-list vertical">
-			<div class="cell-item" *ngFor="let good of goods">
+			<div
+				class="cell-item"
+				*ngFor="let good of goods"
+				(click)="goodDetails(good)"
+			>
 				<div class="box elevation-1">
 					<ion-img
 						[src]="good.cover"

@@ -1,0 +1,44 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-back-button text="返回"></ion-back-button>
+		</ion-buttons>
+		<ion-title>{{ good.title }}</ion-title>
+		<ion-buttons slot="end">
+			<ion-button>
+				<svg class="icon" aria-hidden="true" slot="icon-only">
+					<use xlink:href="#icon-shoucang" />
+				</svg>
+			</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+<ion-content>
+	<ion-img [src]="good.cover" class="cover" [alt]="good.title"></ion-img>
+	<div class="box">
+		<div class="box-header">
+			<div class="header-title">
+				{{ good.title }}
+			</div>
+			<div class="header-subtitle">
+				{{ good.label }}
+			</div>
+		</div>
+		<div class="box-cell">
+			<div class="good-price">
+				¥{{ theMin(good.price.original, good.price.ultimately) }}
+				<sub>{{ theMax(good.price.original, good.price.ultimately) }}</sub>
+			</div>
+			<div class="good-chip">
+				<div class="chip">
+					<small class="fresh" *ngIf="good.fresh">新品</small>
+				</div>
+			</div>
+		</div>
+		<div class="box-content">
+			<ng-container *ngFor="let picture of good.pictures">
+				<ion-img [src]="picture.url"></ion-img>
+			</ng-container>
+		</div>
+	</div>
+</ion-content>

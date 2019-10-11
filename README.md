@@ -36,3 +36,16 @@
 - goods 商品
 
 ### utils 工具
+
+# 打包流程
+
+```bash
+
+# 打包
+$ ionic build
+# 物料
+$ npx cap copy
+# 打包工具
+$ npx cap open [ android | ios ]
+
+```

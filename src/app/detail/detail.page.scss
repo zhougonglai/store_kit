@@ -1,0 +1,30 @@
+:host {
+	ion-toolbar {
+		.icon {
+			width: 24px;
+			height: 24px;
+		}
+	}
+	.box {
+		.box-header {
+			padding: 8px 16px;
+			.header-subtitle {
+			}
+			.header-title {
+				font-weight: bold;
+				font-size: large;
+			}
+		}
+		.box-cell {
+			padding: 8px 16px;
+		}
+	}
+
+	.good-price {
+		color: var(--ion-color-danger);
+		sub {
+			color: var(--ion-color-medium);
+			text-decoration: line-through;
+		}
+	}
+}

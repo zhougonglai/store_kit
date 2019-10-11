@@ -17,6 +17,7 @@
 			"@components/*": ["src/app/shared/components/*"],
 			"@model/*": ["src/app/shared/model/*"],
 			"@service/*": ["src/app/shared/service/*"],
+			"@store": ["src/app/shared/store/index.ts"],
 			"@store/*": ["src/app/shared/store/*"],
 			"@utils": ["src/app/shared/utils/index.ts"],
 			"@utils/*": ["src/app/shared/utils/*"],

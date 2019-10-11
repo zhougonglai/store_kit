@@ -10,7 +10,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { environment } from '@env/environment';
-import { cartsKeyword, cartsReducer } from '@store/carts';
+import rootStore from '@store';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,7 +22,7 @@ import { AppComponent } from './app.component';
 		BrowserModule,
 		HttpClientModule,
 		IonicModule.forRoot(),
-		StoreModule.forRoot({ Carts: cartsReducer }),
+		StoreModule.forRoot(rootStore),
 		StoreDevtoolsModule.instrument({
 			maxAge: 25,
 			logOnly: environment.production,

@@ -2,7 +2,7 @@ import { actionCreator } from '@utils';
 import { createReducer, on, State, Action, props } from '@ngrx/store';
 import { GoodsDetails } from '@model/goods';
 
-export const cartsKeyword = '[Carts]';
+export const cartsKeyword = 'CARTS';
 const initialState = [];
 
 /* -- @actions -- */
@@ -10,7 +10,11 @@ export const CartsActions = {
 	Add: actionCreator(cartsKeyword, 'Add', props<GoodsDetails>()),
 };
 
-/* -- @reducer -- */
+/**
+ * @reducer
+ * @method Add
+ * @method Set
+ */
 const reducerCreator = createReducer(
 	initialState,
 	on(CartsActions.Add, (state, payload) => state.concat([payload])),

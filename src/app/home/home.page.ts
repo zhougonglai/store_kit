@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { cartsKeyword, CartsActions } from '@store/carts';
+import { Store, select } from '@ngrx/store';
+import { goodsKeyword, GoodsActions, CartsActions } from '@store';
 import { GoodsService } from '@service/goods.service';
 import { environment } from '@env/environment';
+import { Router } from '@angular/router';
+import { GoodsDetails } from '@model/goods';
 
 @Component({
 	selector: 'app-home',
@@ -66,8 +68,9 @@ export class HomePage implements OnInit {
 	goods = [];
 
 	constructor(
-		private store: Store<{ [cartsKeyword]: [] }>,
+		private store: Store<{ [goodsKeyword]: Array<GoodsDetails> }>,
 		private goodsService: GoodsService,
+		private router: Router,
 	) {
 		this.title = environment.production ? 'production' : 'developers';
 	}
@@ -88,19 +91,30 @@ export class HomePage implements OnInit {
 		this.store.dispatch(CartsActions.Add(good));
 	}
 
+	goodDetails({ id }) {
+		this.router.navigate(['/detail', id]);
+	}
+
 	ngOnInit() {
 		this.goodsService.getBanner().subscribe(({ data }) => {
 			this.banners = data;
 		});
 
 		this.goodsService.getGoodsList('fresh').subscribe(({ data: { goods } }) => {
-			this.freshs = goods;
+			this.store.dispatch(GoodsActions.Add({ goods }));
 		});
 
 		this.goodsService
 			.getGoodsList('10,5,2')
 			.subscribe(({ data: { goods } }) => {
-				this.goods = goods;
+				this.store.dispatch(GoodsActions.Add({ goods }));
 			});
+
+		this.store.pipe(select(goodsKeyword)).subscribe(store => {
+			if (store.length) {
+				this.freshs = store.filter(good => good.fresh);
+				this.goods = store.filter(goods => !goods.fresh);
+			}
+		});
 	}
 }
