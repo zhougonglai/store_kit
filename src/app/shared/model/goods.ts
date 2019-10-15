@@ -18,6 +18,15 @@ export interface GoodsDetails {
 	type: 2 | 5 | 10;
 	// 描述图片
 	pictures: Resource[];
+
+	// 在购物车上的数量
+	count?: number;
+	// 选中
+	select?: boolean;
+}
+
+export interface GoodsInCarts {
+	[key: string]: GoodsDetails;
 }
 
 export interface Resource {

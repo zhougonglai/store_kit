@@ -1,0 +1,62 @@
+.block {
+	width: 100%;
+	min-height: 44px;
+	text-align: center;
+	color: var(--ion-color-medium);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.app-version {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	color: #666;
+	z-index: 999;
+}
+
+.tag {
+	border: 1px solid currentColor;
+	padding: 0 8px;
+	border-radius: 4px;
+	cursor: default;
+	box-sizing: border-box;
+	font-variant: tabular-nums;
+	line-height: 1.5;
+	list-style: none;
+	font-feature-settings: 'tnum';
+	display: inline-block;
+	font-size: 12px;
+	white-space: nowrap;
+	opacity: 1;
+	transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+
+	&:not(:last-child) {
+		margin-right: 8px;
+	}
+
+	&.tag-danger {
+		color: var(--ion-color-danger);
+		background-color: #fff1f0;
+		border-color: #ffa39e;
+	}
+
+	.tag-green {
+		color: var(--ion-color-success);
+		background-color: var(--ion-color-success-shade);
+		border-color: var(--ion-color-success-tint);
+	}
+
+	&.tag-yellow {
+		color: var(--ion-color-warning);
+		background-color: #feffe6;
+		border-color: #fffb8f;
+	}
+
+	&.tag-blue {
+		color: var(--ion-color-primary);
+		background-color: #e6f7ff;
+		border-color: #91d5ff;
+	}
+}

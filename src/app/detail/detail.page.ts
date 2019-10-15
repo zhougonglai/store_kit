@@ -3,7 +3,7 @@ import { Store, select } from '@ngrx/store';
 import { goodsKeyword } from '@store';
 import { GoodsDetails } from '@model/goods';
 import { filter } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
 	selector: 'app-detail',
@@ -16,6 +16,7 @@ export class DetailPage implements OnInit {
 	constructor(
 		private store: Store<{ [goodsKeyword]: Array<GoodsDetails> }>,
 		private route: ActivatedRoute,
+		private router: Router,
 	) {}
 
 	theMin(i: number, s: number) {
@@ -28,10 +29,13 @@ export class DetailPage implements OnInit {
 
 	ngOnInit() {
 		this.store.pipe(select(goodsKeyword)).subscribe(goods => {
-			this.good = goods.filter(
-				good => good.id === this.route.snapshot.paramMap.get('id'),
-			)[0];
-			console.log(this.good);
+			if (goods.length) {
+				this.good = goods.filter(
+					good => good.id === this.route.snapshot.paramMap.get('id'),
+				)[0];
+			} else {
+				this.router.navigate(['tabs', 'home']);
+			}
 		});
 	}
 }

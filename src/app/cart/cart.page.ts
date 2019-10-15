@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import _ from 'lodash';
 import { format } from 'mathjs';
 import { Store, select } from '@ngrx/store';
-import { CartsActions } from '@store/carts';
+import { CartsActions, cartsKeyword } from '@store/carts';
 import { Observable } from 'rxjs';
+import { GoodsDetails } from '@model/goods';
 
 @Component({
 	selector: 'app-cart',
@@ -11,45 +12,47 @@ import { Observable } from 'rxjs';
 	styleUrls: ['./cart.page.scss'],
 })
 export class CartPage implements OnInit {
-	carts = {
-		selector: [],
-		items: [],
-	};
+	goods$: Observable<GoodsDetails[]>;
+	// 全选
+	selectorAll$: Observable<boolean>;
+	// 计算购物车商品总价
+	count$: Observable<string>;
 
-	goods$: Observable<[]>;
-
-	constructor(private store: Store<{ Carts: [] }>) {}
+	constructor(private store: Store<{ [cartsKeyword]: GoodsDetails[] }>) {}
 
 	ngOnInit() {
-		this.goods$ = this.store.pipe(select('Carts'));
+		this.goods$ = this.store.pipe(select(({ CARTS }) => Object.values(CARTS)));
+		this.selectorAll$ = this.store.pipe(
+			select(({ CARTS }) => Object.values(CARTS).every(good => good.select)),
+		);
+		this.count$ = this.store.pipe(
+			select(({ CARTS }) =>
+				format(
+					Object.values(CARTS).reduce(
+						(total, { count, price, select }: GoodsDetails) =>
+							(select ? count * price.ultimately : 0) + total,
+						0,
+					),
+					{ notation: 'fixed', precision: 2 },
+				),
+			),
+		);
 	}
 
-	// 是否全选
-	get selectorAll(): boolean {
-		return false;
-		// return this.carts.items.length
-		// 	? !_.difference(
-		// 			this.carts.items.map(item => item.id),
-		// 			this.carts.selector,
-		// 	  ).length
-		// 	: false;
-	}
-
-	// 计算购物车商品总价
-	get count() {
-		return 1;
-		// return format(
-		// 	this.carts.items.reduce(
-		// 		(total, { id, price, count }) =>
-		// 			total + (this.carts.selector.includes(id) ? price * count : 0),
-		// 		0,
-		// 	),
-		// 	{ notation: 'fixed', precision: 2 },
-		// );
-	}
-
+	/**
+	 * 增加商品
+	 * @param good 商品
+	 */
 	pushCarts(good) {
-		this.store.dispatch(CartsActions.Add(good));
+		this.store.dispatch(CartsActions.Add({ good }));
+	}
+
+	/**
+	 * 削减商品
+	 * @param good 商品
+	 */
+	decrementGoods(good) {
+		this.store.dispatch(CartsActions.Decrement({ good }));
 	}
 
 	/**
@@ -57,13 +60,8 @@ export class CartPage implements OnInit {
 	 * @param goods 商品
 	 * @param event 事件
 	 */
-	statusChange({ id }, { detail }) {
-		console.log('statusChange', id, detail.checked);
-		if (detail.checked) {
-			this.carts.selector.push(id);
-		} else {
-			this.carts.selector.splice(this.carts.selector.indexOf(id), 1);
-		}
+	statusChange(good) {
+		this.store.dispatch(CartsActions.Select({ good }));
 	}
 
 	/**
@@ -71,11 +69,6 @@ export class CartPage implements OnInit {
 	 * @param event 事件
 	 */
 	selectorChange({ detail: { checked } }) {
-		console.log('selectorChange', checked);
-		if (checked) {
-			this.carts.selector = this.carts.items.map(item => item.id);
-		} else {
-			this.carts.selector = [];
-		}
+		this.store.dispatch(CartsActions.SelectAll());
 	}
 }

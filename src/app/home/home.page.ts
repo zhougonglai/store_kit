@@ -5,6 +5,7 @@ import { GoodsService } from '@service/goods.service';
 import { environment } from '@env/environment';
 import { Router } from '@angular/router';
 import { GoodsDetails } from '@model/goods';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'app-home',
@@ -16,7 +17,7 @@ export class HomePage implements OnInit {
 		loop: true,
 	};
 
-	title = '';
+	appversion = environment.version;
 
 	list = [
 		{
@@ -63,17 +64,15 @@ export class HomePage implements OnInit {
 
 	banners = [];
 
-	freshs = [];
+	freshs$: Observable<GoodsDetails[]>;
 
-	goods = [];
+	goods$: Observable<GoodsDetails[]>;
 
 	constructor(
-		private store: Store<{ [goodsKeyword]: Array<GoodsDetails> }>,
+		private store: Store<{ [goodsKeyword]: GoodsDetails[] }>,
 		private goodsService: GoodsService,
 		private router: Router,
-	) {
-		this.title = environment.production ? 'production' : 'developers';
-	}
+	) {}
 
 	theMin(i: number, s: number) {
 		return Math.min(i, s);
@@ -88,7 +87,7 @@ export class HomePage implements OnInit {
 	}
 
 	pushCarts(good) {
-		this.store.dispatch(CartsActions.Add(good));
+		this.store.dispatch(CartsActions.Add({ good }));
 	}
 
 	goodDetails({ id }) {
@@ -96,6 +95,13 @@ export class HomePage implements OnInit {
 	}
 
 	ngOnInit() {
+		this.freshs$ = this.store.pipe(
+			select(state => state[goodsKeyword].filter(good => good.fresh)),
+		);
+		this.goods$ = this.store.pipe(
+			select(state => state[goodsKeyword].filter(good => !good.fresh)),
+		);
+
 		this.goodsService.getBanner().subscribe(({ data }) => {
 			this.banners = data;
 		});
@@ -109,12 +115,5 @@ export class HomePage implements OnInit {
 			.subscribe(({ data: { goods } }) => {
 				this.store.dispatch(GoodsActions.Add({ goods }));
 			});
-
-		this.store.pipe(select(goodsKeyword)).subscribe(store => {
-			if (store.length) {
-				this.freshs = store.filter(good => good.fresh);
-				this.goods = store.filter(goods => !goods.fresh);
-			}
-		});
 	}
 }

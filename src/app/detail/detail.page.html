@@ -24,21 +24,54 @@
 				{{ good.label }}
 			</div>
 		</div>
-		<div class="box-cell">
-			<div class="good-price">
+		<div class="box-cell horizontal">
+			<div class="cell-item good-price">
 				¥{{ theMin(good.price.original, good.price.ultimately) }}
 				<sub>{{ theMax(good.price.original, good.price.ultimately) }}</sub>
 			</div>
-			<div class="good-chip">
-				<div class="chip">
-					<small class="fresh" *ngIf="good.fresh">新品</small>
-				</div>
+			<div class="fill"></div>
+			<div class="cell-item">
+				<span class="tag tag-danger" *ngIf="good.fresh">新品</span>
+				<span class="tag tag-green" *ngIf="good.type == 2">
+					2人团
+				</span>
+				<span class="tag tag-blue" *ngIf="good.type == 5">
+					5人团
+				</span>
+				<span class="tag tag-yellow" *ngIf="good.type == 10">
+					10人团
+				</span>
 			</div>
 		</div>
-		<div class="box-content">
+		<div class="box-content" *ngIf="good">
+			<div class="block border-top-1px border-bottom-1px">
+				商品详情
+			</div>
 			<ng-container *ngFor="let picture of good.pictures">
 				<ion-img [src]="picture.url"></ion-img>
 			</ng-container>
 		</div>
 	</div>
 </ion-content>
+
+<ion-footer>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-button>
+				<ion-icon slot="icon-only" name="heart"></ion-icon>
+			</ion-button>
+			<ion-button>
+				<ion-icon slot="icon-only" name="text"></ion-icon>
+			</ion-button>
+		</ion-buttons>
+		<ion-buttons slot="end">
+			<ion-button fill="outline" color="danger">
+				<span slot="icon-only">🛒</span>
+				加入购物车
+			</ion-button>
+			<ion-button fill="solid" color="danger">
+				立即参团
+			</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-footer>

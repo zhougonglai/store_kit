@@ -8,8 +8,6 @@
 	.box {
 		.box-header {
 			padding: 8px 16px;
-			.header-subtitle {
-			}
 			.header-title {
 				font-weight: bold;
 				font-size: large;
@@ -17,6 +15,9 @@
 		}
 		.box-cell {
 			padding: 8px 16px;
+			&.horizontal {
+				display: flex;
+			}
 		}
 	}
 
@@ -26,5 +27,9 @@
 			color: var(--ion-color-medium);
 			text-decoration: line-through;
 		}
+	}
+
+	.block {
+		background-color: #efeff4;
 	}
 }

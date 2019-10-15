@@ -12,6 +12,7 @@
 			</ion-button>
 		</ion-buttons>
 	</ion-toolbar>
+	<small class="app-version x-small">{{ appversion }}</small>
 </ion-header>
 
 <ion-content fullscreen>
@@ -20,6 +21,23 @@
 			<ion-img [src]="banner"></ion-img>
 		</ion-slide>
 	</ion-slides>
+
+	<img
+		src="https://gw.alipayobjects.com/zos/rmsportal/MnLEmwjipfhzPUmBJnJE.svg"
+		class="parallax-bg box"
+	/>
+	<img
+		src="https://gw.alipayobjects.com/zos/rmsportal/dyNuxLOZtvjoHSVisbhQ.svg"
+		class="parallax-bg sanjiao"
+	/>
+	<img
+		src="https://gw.alipayobjects.com/zos/rmsportal/VrADJaRPMnFjmtmIhObV.svg"
+		class="parallax-bg box-2"
+	/>
+	<img
+		src="https://gw.alipayobjects.com/zos/rmsportal/UtBesTOkoZsBUxPqfDlZ.svg"
+		class="parallax-bg sanjiao-2"
+	/>
 
 	<ion-grid>
 		<ion-row class="ion-align-items-center ion-justify-content-center">
@@ -32,100 +50,115 @@
 				</div>
 			</ion-col>
 		</ion-row>
+		<small class="app-version x-small">{{ appversion }}</small>
 	</ion-grid>
 
-	<ion-toolbar class="ion-margin-top">
-		<div class="title">新品推荐</div>
-		<ion-buttons slot="end">
-			<ion-button>查看更多></ion-button>
-		</ion-buttons>
-	</ion-toolbar>
+	<ng-container *ngIf="freshs$ | async as data; else elseTemplate">
+		<ion-toolbar class="ion-margin-top">
+			<div class="title">新品推荐</div>
+			<ion-buttons slot="end">
+				<ion-button>查看更多></ion-button>
+			</ion-buttons>
+		</ion-toolbar>
 
-	<div class="scroll-view-container horizontal">
-		<div class="cell-list horizontal">
-			<div
-				class="cell-item"
-				*ngFor="let fresh of freshs"
-				(click)="goodDetails(fresh)"
-			>
-				<div class="box">
-					<img
-						[src]="fresh.cover"
-						class="box-img shadow-2"
-						[alt]="fresh.label"
-					/>
-					<div class="box-content">
-						<div class="box-title smaller">{{ fresh.title }}</div>
-						<div class="box-subtitle small">{{ fresh.label }}</div>
-						<div class="box-rate small">
-							{{ getRate(fresh.mean_rate) }} <i>{{ fresh.mean_rate }}分</i>
+		<div class="scroll-view-container horizontal">
+			<div class="cell-list horizontal">
+				<div class="cell-item" *ngFor="let fresh of data">
+					<div class="box">
+						<img
+							[src]="fresh.cover"
+							class="box-img shadow-2"
+							[alt]="fresh.label"
+							(click)="goodDetails(fresh)"
+						/>
+						<div class="box-content">
+							<div class="box-title smaller" (click)="goodDetails(fresh)">
+								{{ fresh.title }}
+							</div>
+							<div class="box-subtitle small" (click)="goodDetails(fresh)">
+								{{ fresh.label }}
+							</div>
+							<div class="box-rate small" (click)="goodDetails(fresh)">
+								{{ getRate(fresh.mean_rate) }} <i>{{ fresh.mean_rate }}分</i>
+							</div>
+							<div class="box-price" (click)="goodDetails(fresh)">
+								¥{{ theMin(fresh.price.original, fresh.price.ultimately) }}
+								<sub>{{
+									theMax(fresh.price.original, fresh.price.ultimately)
+								}}</sub>
+							</div>
+							<ion-buttons class="box-action">
+								<ion-button
+									color="danger"
+									fill="clear"
+									size="small"
+									(click)="pushCarts(fresh)"
+								>
+									<ion-icon slot="icon-only" name="add-circle"></ion-icon>
+								</ion-button>
+							</ion-buttons>
 						</div>
-						<div class="box-price">
-							¥{{ theMin(fresh.price.original, fresh.price.ultimately) }}
-							<sub>{{
-								theMax(fresh.price.original, fresh.price.ultimately)
-							}}</sub>
-						</div>
-						<ion-buttons class="box-action">
-							<ion-button
-								color="danger"
-								fill="clear"
-								size="small"
-								(click)="pushCarts(fresh)"
-							>
-								<ion-icon slot="icon-only" name="add-circle"></ion-icon>
-							</ion-button>
-						</ion-buttons>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	</ng-container>
+	<ng-template #elseTemplate>
+		freshs$ empy
+	</ng-template>
 
-	<ion-toolbar class="ion-margin-top">
-		<div class="title">聚划算</div>
-		<ion-buttons slot="end">
-			<ion-button>查看更多></ion-button>
-		</ion-buttons>
-	</ion-toolbar>
+	<ng-container *ngIf="goods$ | async as data; else elseTemplate">
+		<ion-toolbar class="ion-margin-top">
+			<div class="title">聚划算</div>
+			<ion-buttons slot="end">
+				<ion-button>查看更多></ion-button>
+			</ion-buttons>
+		</ion-toolbar>
 
-	<div class="scroll-view-container vertical">
-		<div class="cell-list vertical">
-			<div
-				class="cell-item"
-				*ngFor="let good of goods"
-				(click)="goodDetails(good)"
-			>
-				<div class="box elevation-1">
-					<ion-img
-						[src]="good.cover"
-						class="box-img"
-						[alt]="good.label"
-					></ion-img>
-					<div class="box-content">
-						<div class="box-title large">{{ good.title }}</div>
-						<div class="box-subtitle small">{{ good.label }}</div>
-						<div class="fill"></div>
-						<div class="box-price larger">
-							¥{{ theMin(good.price.original, good.price.ultimately) }}
-							<sub>{{
-								theMax(good.price.original, good.price.ultimately)
-							}}</sub>
+		<div class="scroll-view-container vertical">
+			<div class="cell-list vertical">
+				<div class="cell-item" *ngFor="let good of data">
+					<div class="box elevation-1">
+						<ion-img
+							[src]="good.cover"
+							class="box-img"
+							[alt]="good.label"
+							(click)="goodDetails(good)"
+						></ion-img>
+						<div class="box-content">
+							<div class="box-title large" (click)="goodDetails(good)">
+								{{ good.title }}
+							</div>
+							<div class="box-subtitle small" (click)="goodDetails(good)">
+								{{ good.label }}
+							</div>
+							<div class="fill" (click)="goodDetails(good)"></div>
+							<div class="box-price larger" (click)="goodDetails(good)">
+								¥{{ theMin(good.price.original, good.price.ultimately) }}
+								<sub>{{
+									theMax(good.price.original, good.price.ultimately)
+								}}</sub>
+							</div>
+							<ion-buttons class="box-action">
+								<ion-button
+									color="danger"
+									fill="solid"
+									(click)="pushCarts(good)"
+								>
+									马上抢
+								</ion-button>
+							</ion-buttons>
 						</div>
-						<ion-buttons class="box-action">
-							<ion-button color="danger" fill="solid" (click)="pushCarts(good)">
-								马上抢
-							</ion-button>
-						</ion-buttons>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<ion-toolbar>
 		<div class="block">
 			到底了!
 		</div>
-	</ion-toolbar>
+	</ng-container>
+	<ng-template #elseTemplate>
+		goods$ empty
+	</ng-template>
 </ion-content>

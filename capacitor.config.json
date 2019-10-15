@@ -1,7 +1,7 @@
 {
-	"appId": "io.infinite.store",
-	"appName": "斗牛商城",
-	"bundledWebRuntime": false,
-	"npmClient": "npm",
-	"webDir": "dist"
+  "appId": "io.infinite.store",
+  "appName": "斗牛商城",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "dist"
 }

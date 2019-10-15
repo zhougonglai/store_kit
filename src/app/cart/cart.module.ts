@@ -6,21 +6,23 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { CartPage } from './cart.page';
+import { SharedModule } from '@shared/shared.module';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: CartPage
-  }
+	{
+		path: '',
+		component: CartPage,
+	},
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild(routes)
-  ],
-  declarations: [CartPage]
+	imports: [
+		CommonModule,
+		FormsModule,
+		IonicModule,
+		SharedModule,
+		RouterModule.forChild(routes),
+	],
+	declarations: [CartPage],
 })
 export class CartPageModule {}

@@ -1,9 +1,15 @@
-import { cartsKeyword, cartsReducer } from './carts';
-import { goodsKeyword, goodsReducer } from './goods';
+import { cartsReducer } from './carts';
+import { goodsReducer } from './goods';
+import { MetaReducer } from '@ngrx/store';
+import { environment } from '@env/environment';
 export * from './carts';
 export * from './goods';
 
-export default {
-	[cartsKeyword]: cartsReducer,
-	[goodsKeyword]: goodsReducer,
+export const reducers = {
+	CARTS: cartsReducer,
+	GOODS: goodsReducer,
 };
+
+export const metaReducers: MetaReducer<any>[] = environment.production
+	? []
+	: [];

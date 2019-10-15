@@ -5,17 +5,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ScrollViewComponent } from '@components/scroll-view/scroll-view.component';
-import { BouncingLoaderComponent } from '@components/bouncing-loader/bouncing-loader.component';
-import { SpinnerComponent } from '@components/spinner/spinner.component';
-
-const Components = [
-	ScrollViewComponent,
-	BouncingLoaderComponent,
-	SpinnerComponent,
-];
-
 import { SearchPage } from './search.page';
+import { SharedModule } from '@shared/shared.module';
 
 const routes: Routes = [
 	{
@@ -28,9 +19,11 @@ const routes: Routes = [
 	imports: [
 		CommonModule,
 		FormsModule,
+
 		IonicModule,
+		SharedModule,
 		RouterModule.forChild(routes),
 	],
-	declarations: [SearchPage, ...Components],
+	declarations: [SearchPage],
 })
 export class SearchPageModule {}

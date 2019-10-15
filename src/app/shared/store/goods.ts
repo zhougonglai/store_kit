@@ -1,6 +1,5 @@
-import { actionCreator } from '@utils';
 import { GoodsDetails } from '@model/goods';
-import { props, createReducer, Action, on } from '@ngrx/store';
+import { props, createReducer, on, createAction } from '@ngrx/store';
 
 export const goodsKeyword = 'GOODS';
 const initialState: GoodsDetails[] = [];
@@ -12,7 +11,10 @@ interface GoodsAction {
 
 /* -- @actions -- */
 export const GoodsActions = {
-	Add: actionCreator(goodsKeyword, 'Add', props<{ goods: GoodsDetails[] }>()),
+	Add: createAction(
+		[goodsKeyword, 'Add'].join('.'),
+		props<{ goods: GoodsDetails[] }>(),
+	),
 };
 
 const reducerCreator = createReducer(

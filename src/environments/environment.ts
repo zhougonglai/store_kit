@@ -5,6 +5,7 @@
 export const environment = {
 	production: false,
 	baseUrl: '/api/',
+	version: '0.0.8-dev',
 };
 
 /*
